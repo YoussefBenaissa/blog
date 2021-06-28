@@ -31,16 +31,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Regex(
+     *     pattern="/\d/",
+     *     match=false,
+     *     message="pas de chiffre dans le nom"
+     * )
      */
     private $username;
 
     /**
      * @ORM\Column(type="json")
+
      */
     private $roles = [];
 
     /**
-     * @Assert\Length(min=4,max=50)
+     * @Assert\Length(min= 4,max= 50)
      * @var string The hashed password
      * @ORM\Column(type="string")
      */

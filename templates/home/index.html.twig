@@ -9,15 +9,26 @@
 	</div>
 
 	<div class="row">
-		<div class="col-2"></div>
+		<div class="col-2 mt-3 ">
+			<div>
+				<img class="imgaside" src='/assets/blog/images/details_L97827637342931.jpg'></div>
+			<div>
+				<img class="imgaside" src='/assets/blog/images/images.jpg'></div>
+			<div>
+				<img class="imgaside" src='/assets/blog/images/index.png'></div>
+			<div>
+				<img class="imgaside" src='/assets/blog/images/details_L97827637342931.jpg'></div>
 
-		<div class="col-8 mt-2">
+
+		</div>
+
+		<div class="col-8 mt-2 ">
 			<h5>
 				A la une aujourd'hui :</h5>
-			<div class="row">
+			<div class="row  paddingcont">
 				{% for article in articles %}
-					<div class="card col-md-2 mt-2  marginright">
-						<p class="date">Ecrit le
+					<div class="card col-md-3 mt-2  marginright">
+						<p class="date text-center">Ecrit le
 							{{article.creatAt | date("d/m/Y")}}
 							à
 							{{article.creatAt | date("H:i")}}
@@ -39,7 +50,7 @@
 				{% endfor %}
 			</div>
 		</div>
-		<div class="col-2 mt-2">
+		<div class="col-2 mt-2 mr-1">
 			<h2>Category</h2>
 			{% for category in categorys %}
 				<ul class="list-group">
@@ -53,6 +64,13 @@
 
 
 			{% endfor %}
+			<div>
+				<img class="imgaside" src='/assets/blog/images/details_L97827637342931.jpg'></div>
+			<div>
+				<img class="imgaside" src='/assets/blog/images/images.jpg'></div>
+			<div>
+				<img class="imgaside" src='/assets/blog/images/details_L97827637342931.jpg'></div>
+
 
 		</div>
 
