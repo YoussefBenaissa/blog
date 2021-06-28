@@ -2,15 +2,22 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Article;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @uniqueEntity(
+ * fields= {"email"},
+ * message= " L'email existe deja  "
+ * )
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -18,6 +25,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
      */
     private $id;
 
@@ -32,22 +40,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $roles = [];
 
     /**
+     * @Assert\Length(min=4,max=50)
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
     private $password;
 
     /**
+     * @Assert\Length(min=3,max=50)
      * @ORM\Column(type="string", length=255)
      */
     private $firstname;
 
     /**
+     * @Assert\Length(min=3,max=50)
      * @ORM\Column(type="string", length=255)
      */
     private $lastname;
 
     /**
+     * @Assert\Email(message="L'email n'est pas valide")
      * @ORM\Column(type="string", length=255)
      */
     private $email;
@@ -61,12 +73,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToMany(targetEntity=Article::class, mappedBy="author")
      */
     private $articles;
+    /**
+     *@Assert\EqualTo(propertyPath="password",message=" les mdp sont different")
+     */
+
+
     private $passwordConfirm;
 
     public function __construct()
     {
         $this->articles = new ArrayCollection();
-        $this->creatAt = new \DateTime();
+        $this->cretaAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -92,7 +109,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setpasswordConfirm(string $passwordConfirm): self
     {
-        $this->username = $passwordConfirm;
+        $this->passwordConfirm = $passwordConfirm;
 
         return $this;
     }
