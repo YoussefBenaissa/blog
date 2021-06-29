@@ -6,12 +6,12 @@
 			{{article.title}}</h1>
 		<figure class="col-lg-12">
 			<img class="article-img mt-2" src="/assets/blog/images/{{article.image}}" alt="{{article.title}}" width="100%">
-			<p class="date ">Ecrit le
+			<p class="date "><b>Ecrit le
 				{{article.creatAt | date("d/m/Y")}}
 				à
 				{{article.creatAt | date("H:i")}}
 				par
-				{{article.author}}</p>
+				{{article.author}}</b></p>
 		</figure>
 		<div class="article-intro col-lg-12" style="padding-top: 10px;">
 			<p class="particle ">{{ article.content|raw }}</p>
