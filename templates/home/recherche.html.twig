@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h2 class="text-center">BlogInfo</h2>
+	</div>
+
+	<div class="row">
+		<div class="col-2 mt-3 ">
+			<div>
+				<img class="imgaside" src='/assets/blog/images/details_L97827637342931.jpg'></div>
+			<div>
+				<img class="imgaside" src='/assets/blog/images/images.jpg'></div>
+			<div>
+				<img class="imgaside" src='/assets/blog/images/index.png'></div>
+			<div>
+				<img class="imgaside" src='/assets/blog/images/details_L97827637342931.jpg'></div>
+
+
+		</div>
+
+		<div class="col-8 mt-2 ">
+			<h5>
+				Résultat de la recherche :</h5>
+			<div class="row  paddingcont">
+				{% for article in articles %}
+					<div class="card col-md-3 mt-2  marginright">
+						<p class="date text-center">Ecrit le
+							{{article.creatAt | date("d/m/Y")}}
+							à
+							{{article.creatAt | date("H:i")}}
+
+						</p>
+						<img src="/assets/blog/images/{{article.image}}" width="100%" class="card-img-top" alt="{{article.image}}">
+
+
+						<div class="card-body">
+							<h5 class="card-title">{{article.title}}</h5>
+
+							<a href="{{path('show', {id : article.id})}}" class="btn btnarticle">En savoir plus</a>
+
+
+						</div>
+
+					</div>
+
+				{% endfor %}
+			</div>
+		</div>
+		<div class="col-2 mt-2 mr-1">
+			<h2>Category</h2>
+			{% for category in categorys %}
+				<ul class="list-group">
+					<li class="list-group-item d-flex justify-content-between align-items-center border-0">
+						<a href="{{path('show_article',{'id':category.id})}}">{{category.title}}</a>
+						<span class="badge bgcategori rounded-pill">{{category.articles| length}}
+							article(s)</span>
+					</li>
+
+				</ul>
+
+
+			{% endfor %}
+			<div>
+				<img class="imgaside" src='/assets/blog/images/details_L97827637342931.jpg'></div>
+			<div>
+				<img class="imgaside" src='/assets/blog/images/images.jpg'></div>
+			<div>
+				<img class="imgaside" src='/assets/blog/images/details_L97827637342931.jpg'></div>
+
+
+		</div>
+
+	</div>
+
+{% endblock %}

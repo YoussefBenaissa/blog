@@ -23,14 +23,18 @@ class SecurityController extends AbstractController
         $this->manager = $manager;
     }
     /**
-     * @Route("/register", name="security_register")
+     * @Route("/register/{user_type}", name="security_register")
      */
 
-    public function register(Request $request, UserPasswordEncoderInterface $encoder): Response
+    public function register(Request $request, UserPasswordEncoderInterface $encoder, $user_type): Response
     {
         $user = new User();
         $form = $this->createForm(RegisterType::class, $user);
         $form->handleRequest($request);
+
+        if ($user_type === "admin" && $this->isGranted('ROLE_SUPER_ADMIN')) {
+            $user->setRoles(['ROLE_ADMIN']);
+        }
 
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -60,6 +64,5 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
-       
     }
 }

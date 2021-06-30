@@ -48,4 +48,19 @@ class ArticleRepository extends ServiceEntityRepository
         ;
     }
     */
+    
+    /**
+     * @return Article[] Returns an array of Article objects
+     */
+    public function findByTitleLike(string $title,  $date): array
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.title like :title ')
+            ->setParameter('title', '%' . $title . '%')
+            ->andWhere('a.creatAt  >= :date')
+            ->setParameter('date', $date)
+            ->orderBy('a.creatAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }
